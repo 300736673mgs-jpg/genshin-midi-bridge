@@ -2,11 +2,7 @@
 
 将 MIDI 键盘实时映射为游戏乐器按键的 Windows 桌面工具。
 
-> 本项目是独立的社区工具，与游戏开发商或发行商无隶属、授权或合作关系。
-
 ## 下载与安装
-
-普通用户不需要安装 Python，也不需要运行 `.bat`：
 
 1. 打开 GitHub 仓库右侧的 **Releases**。
 2. 下载最新版本的 `Genshin-MIDI-Bridge-Setup.exe`。
