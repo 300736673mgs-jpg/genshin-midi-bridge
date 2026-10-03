@@ -1,65 +1,68 @@
 # Genshin MIDI Bridge
 
-将 MIDI 键盘实时映射为游戏乐器按键的 Windows 桌面工具。
+A Windows desktop app that maps a MIDI keyboard to the controls of playable instruments in Genshin Impact in real time.
 
-> 本项目是独立的社区工具，与游戏开发商或发行商无隶属、授权或合作关系。
+> This is an independent community project. It is not affiliated with, authorized by, or endorsed by the game's developer or publisher.
 
-## 下载与安装
+## Download and install
 
-普通用户不需要安装 Python，也不需要运行 `.bat`：
+Most users do not need Python and should not run any `.bat` files:
 
-1. 打开 GitHub 仓库右侧的 **Releases**。
-2. 下载最新版本的 `Genshin-MIDI-Bridge-Setup.exe`。
-3. 运行安装程序；Windows 出现管理员权限提示时选择“是”。
-4. 从开始菜单或桌面快捷方式启动 **Genshin MIDI Bridge**。
+1. Open **Releases** on the right side of this GitHub repository.
+2. Download the latest `Genshin-MIDI-Bridge-Setup.exe`.
+3. Run the installer and approve the Windows administrator prompt.
+4. Start **Genshin MIDI Bridge** from the Start menu or its optional desktop shortcut.
+5. Choose your language the first time the app opens. You can change it later in **Settings**.
 
-如果 Windows SmartScreen 提示“Windows 已保护你的电脑”，这是因为个人发布的程序尚未购买代码签名证书。确认文件来自本仓库的 Release 后，可选择“更多信息 → 仍要运行”。
+If Microsoft Defender SmartScreen displays “Windows protected your PC,” the app has not yet been signed with a commercial code-signing certificate. After confirming that the file came from this repository's Release page, select **More info → Run anyway**.
 
-## 使用
+## Quick start
 
-1. 通过 USB 或蓝牙连接能够发送 MIDI Note On/Off 的键盘。
-2. 启动 Genshin MIDI Bridge，在主页选择设备与游戏中的乐器。
-3. 点击“连接”，再点击“开始映射”。
-4. 切回游戏、打开对应乐器并演奏。
+1. Connect a keyboard that sends MIDI Note On/Off messages through USB or Bluetooth MIDI.
+2. Start Genshin MIDI Bridge and select your MIDI device and the matching in-game instrument.
+3. Select **Connect**, then **Start mapping**.
+4. Return to the game, open the instrument, and play.
 
-普通蓝牙打字键盘不是 MIDI 设备。蓝牙 MIDI 键盘如果没有显示，可能需要厂商驱动或 BLE-MIDI 桥接软件。应用内“说明书”提供了完整步骤和排错方法。
+A regular Bluetooth typing keyboard is not a MIDI device. If a Bluetooth MIDI keyboard does not appear, it may require the manufacturer's driver or a BLE-MIDI bridge for Windows. See the in-app **User guide** for complete setup and troubleshooting instructions.
 
-## 功能
+## Features
 
-- USB MIDI 与 Windows 可见的蓝牙 MIDI 输入
-- 多种三排、两排、和弦、变化音与打击乐预设
-- 可视化钢琴键盘，白键和黑键均可独立编辑
-- 黑键左右映射、外侧音域折叠、移调、八度偏移和力度门槛
-- CC64 延音踏板与踏板期间的同音重复触发
-- 简体中文、English、Español、日本語
-- `Ctrl + Alt + F8` 开始或停止映射
-- 本地保存设置，不读取游戏进程，不修改游戏文件
+- USB MIDI and Bluetooth MIDI inputs exposed to Windows
+- Presets for three-row, two-row, chord, chromatic, and percussion instruments
+- Visual piano editor with independently configurable white and black keys
+- Left/right black-key mapping, outer-octave folding, transpose, octave shift, and velocity threshold
+- CC64 sustain pedal support, including repeated notes while the pedal is held
+- Simplified Chinese, English, Spanish, and Japanese interfaces
+- `Ctrl + Alt + F8` to start or stop mapping
+- Local settings storage; the app does not read the game process or modify game files
 
-## 为什么请求管理员权限
+## Why administrator access is requested
 
-Windows 不允许普通权限程序向管理员权限的游戏窗口发送输入。应用默认请求管理员权限，以保证映射可以生效。程序只发送所配置的键盘按键。
+Windows prevents a normal application from sending input to a game running with administrator privileges. Genshin MIDI Bridge requests the same privilege so that mapped keystrokes can reach the game. It only sends the keyboard inputs configured in the app.
 
-## 从源码运行（开发者）
+## Instrument modes
 
-要求 Windows 10/11 和 Python 3。运行 `run.bat`，首次启动会创建 `.venv` 并安装依赖。
+- Windsong Lyre, Leaping Spirit Piano, and Harmonic Keys: three rows and 21 notes
+- Nightwind Horn: two rows and 14 notes
+- “Lingering Euphonia” and Ukulele: chords placed one physical octave below the melody
+- Vintage Lyre: accidentals mapped to real black keys; unavailable notes remain disabled
+- Festive Drum and Djem Djem Drum: only the percussion inputs available in game are mapped
 
-## 构建发布文件
+## Run from source
 
-运行 `build_exe.bat` 生成 `dist\Genshin-MIDI-Bridge.exe`。安装 [Inno Setup](https://jrsoftware.org/isinfo.php) 后，运行 `build_installer.bat` 生成 `dist\Genshin-MIDI-Bridge-Setup.exe`。
+Requires Windows 10/11 and Python 3. Run `run.bat`; on its first run it creates `.venv` and installs the dependencies.
 
-## 配置与日志
+## Build a release
 
-- 配置：`%LOCALAPPDATA%\GenshinMidiBridge\config.json`
-- 日志：`%LOCALAPPDATA%\GenshinMidiBridge\app.log`
+Run `build_exe.bat` to create `dist\Genshin-MIDI-Bridge.exe`. After installing [Inno Setup](https://jrsoftware.org/isinfo.php), run `build_installer.bat` to create `dist\Genshin-MIDI-Bridge-Setup.exe`.
 
-## 乐器模式
+GitHub Actions also builds the executable and installer when a version tag beginning with `v` is pushed.
 
-- 风物之诗琴、跃律琴、谐律键琴：三排二十一键
-- 晚风圆号：两排十四键
-- 余音、悠可琴：和弦位于低一个物理八度
-- 老旧的诗琴：变化音对应真实黑键，不存在的音保持关闭
-- 绮筵之鼓、聚聚鼓：仅映射实际存在的打击键
+## Configuration and logs
 
-## 隐私
+- Configuration: `%LOCALAPPDATA%\GenshinMidiBridge\config.json`
+- Log: `%LOCALAPPDATA%\GenshinMidiBridge\app.log`
 
-应用不联网、不收集遥测数据。设置和日志只保存在本机。
+## Privacy
+
+The app does not connect to the internet or collect telemetry. Settings and logs remain on the local computer.
