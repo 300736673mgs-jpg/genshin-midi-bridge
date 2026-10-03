@@ -289,6 +289,7 @@ PROFILE_TEXT = {
 @dataclass
 class Config:
     language: str = "zh"
+    language_selected: bool = False
     midi_port: str = ""
     profile_id: str = "windsong"
     octave_shift: int = 0
@@ -726,15 +727,57 @@ def page_header(title: str, subtitle: str) -> tuple[QWidget, QVBoxLayout]:
     return page, layout
 
 
+class LanguageDialog(QDialog):
+    """One-time language chooser shown before the main window."""
+
+    def __init__(self, current_language: str = "zh"):
+        super().__init__()
+        self.language = current_language if current_language in LANGUAGES else "zh"
+        self.setWindowTitle("Genshin MIDI Bridge")
+        self.setModal(True)
+        self.setFixedSize(420, 330)
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(38, 32, 38, 32)
+        layout.setSpacing(12)
+        heading = QLabel("Choose your language")
+        heading.setObjectName("languageHeading")
+        heading.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        subtitle = QLabel("选择语言  ·  Elegir idioma  ·  言語を選択")
+        subtitle.setObjectName("languageSubtitle")
+        subtitle.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(heading)
+        layout.addWidget(subtitle)
+        layout.addSpacing(10)
+        for code, label in LANGUAGES.items():
+            button = QPushButton(label)
+            button.setProperty("selected", code == self.language)
+            button.clicked.connect(lambda _checked=False, value=code: self.select_language(value))
+            layout.addWidget(button)
+        self.setStyleSheet("""
+            QDialog { background: #111319; }
+            QLabel { color: #F1F3F7; font-family: "Segoe UI Variable", "Microsoft YaHei UI"; }
+            #languageHeading { font-size: 23px; font-weight: 700; }
+            #languageSubtitle { color: #969DAB; font-size: 13px; }
+            QPushButton { background: #232730; color: #E8EBF2; border: 1px solid #353A46;
+                          border-radius: 9px; padding: 10px; font-size: 14px; }
+            QPushButton:hover { background: #2D323E; border-color: #6577FF; }
+            QPushButton[selected="true"] { background: #6577FF; color: white; border-color: #6577FF; }
+        """)
+
+    def select_language(self, language: str) -> None:
+        self.language = language
+        self.accept()
+
+
 class MainWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, config: Config | None = None):
         super().__init__()
         self.setWindowTitle("Genshin MIDI Bridge")
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.Window)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
         self.resize(1100, 720)
         self.setMinimumSize(820, 560)
-        self.config = Config.load()
+        self.config = config or Config.load()
         self.events: queue.Queue = queue.Queue()
         self.bridge = MidiBridge(self.config, self.events)
         self.connected, self.selected_note = False, 60
@@ -1010,6 +1053,7 @@ class MainWindow(QMainWindow):
         if language not in LANGUAGES or language == self.config.language:
             return
         self.config.language = language
+        self.config.language_selected = True
         self.config.save()
         self._retranslate_ui()
         self._sync_profile_ui()
@@ -1329,7 +1373,15 @@ def main() -> None:
     application.setApplicationName("Genshin MIDI Bridge")
     application.setFont(QFont("Segoe UI Variable", 10))
     try:
-        window = MainWindow()
+        config = Config.load()
+        if not config.language_selected:
+            chooser = LanguageDialog(config.language)
+            if chooser.exec() != QDialog.DialogCode.Accepted:
+                raise SystemExit(0)
+            config.language = chooser.language
+            config.language_selected = True
+            config.save()
+        window = MainWindow(config)
         window.show()
         raise SystemExit(application.exec())
     except SystemExit:
