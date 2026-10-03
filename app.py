@@ -48,15 +48,17 @@ except OSError:
 WHITE_PCS = (0, 2, 4, 5, 7, 9, 11)
 NOTE_NAMES = ("C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B")
 LANGUAGES = {"zh": "简体中文", "en": "English", "es": "Español", "ja": "日本語"}
+THEMES = ("abyss", "springs", "vanarana")
 TEXT = {
     "zh": {
         "home": "主页", "instruments": "乐器", "settings": "设置", "about": "说明书",
-        "home_title": "准备演奏", "home_sub": "选择乐器，连接 MIDI，然后开始。",
+        "home_title": "准备演奏", "home_sub": "电脑键盘弹琴手指打结？连接 MIDI 键盘后点击开始映射就可以啦，说明书在左下角。B站：匿叶龙吃炸弹",
         "refresh": "刷新", "connect": "连接", "disconnect": "断开", "start": "开始映射", "stop": "停止映射",
         "not_connected": "未连接", "connected": "设备已连接", "mapping": "正在映射", "waiting": "等待 MIDI 输入",
         "instrument_title": "乐器与键位", "instrument_sub": "选择模式；点击琴键可以覆盖当前预设。",
         "instrument_info": "乐器简介", "map_to": "映射到", "disabled": "关闭", "reset": "恢复此模式默认值",
-        "settings_sub": "演奏参数与输入行为。", "language": "界面语言", "pitch": "音高",
+        "settings_sub": "演奏参数与输入行为。", "language": "界面语言", "theme": "界面颜色", "pitch": "音高",
+        "theme_abyss": "深渊", "theme_springs": "流泉之众", "theme_vanarana": "桓那兰那",
         "octave": "八度偏移", "transpose": "半音移调", "behavior": "输入行为", "velocity": "力度门槛",
         "sustain": "处理延音踏板（CC64）", "black_keys": "把黑键映射到相邻白键", "black_direction": "黑键映射方向", "black_left": "左侧白键", "black_right": "右侧白键", "fold": "把外侧两个八度折叠到最近可用音区",
         "no_device": "没有发现 MIDI 设备", "choose_device": "请先连接 MIDI 设备，然后刷新列表。", "device_missing": "找不到所选 MIDI 设备，请刷新后重试。",
@@ -66,15 +68,17 @@ TEXT = {
         "manual_title": "Genshin MIDI Bridge 使用说明",
         "velocity_live": "力度",
         "midi_error": "处理 MIDI 消息失败：{error}",
+        "already_running": "Genshin MIDI Bridge 已经在运行。请切换到现有窗口，不要同时启动多个桥接器。",
     },
     "en": {
         "home": "Home", "instruments": "Instruments", "settings": "Settings", "about": "User guide",
-        "home_title": "Ready to play", "home_sub": "Choose an instrument, connect MIDI, and start playing.",
+        "home_title": "Ready to play", "home_sub": "Getting your fingers tangled on the computer keyboard? Connect a MIDI keyboard and select Start mapping. The guide is in the bottom-left. Bilibili: 匿叶龙吃炸弹",
         "refresh": "Refresh", "connect": "Connect", "disconnect": "Disconnect", "start": "Start mapping", "stop": "Stop mapping",
         "not_connected": "Not connected", "connected": "Device connected", "mapping": "Mapping active", "waiting": "Waiting for MIDI input",
         "instrument_title": "Instrument & keys", "instrument_sub": "Choose a mode. Click any piano key to override its mapping.",
         "instrument_info": "Instrument info", "map_to": "Map to", "disabled": "Off", "reset": "Restore mode defaults",
-        "settings_sub": "Performance and input preferences.", "language": "Interface language", "pitch": "Pitch",
+        "settings_sub": "Performance and input preferences.", "language": "Interface language", "theme": "Appearance", "pitch": "Pitch",
+        "theme_abyss": "The Abyss", "theme_springs": "People of the Springs", "theme_vanarana": "Vanarana",
         "octave": "Octave shift", "transpose": "Semitone transpose", "behavior": "Input behavior", "velocity": "Velocity threshold",
         "sustain": "Use sustain pedal (CC64)", "black_keys": "Map black keys to adjacent white keys", "black_direction": "Black-key direction", "black_left": "White key on the left", "black_right": "White key on the right", "fold": "Fold outer octaves into the nearest playable range",
         "no_device": "No MIDI device found", "choose_device": "Connect a MIDI device, then refresh the list.", "device_missing": "The selected MIDI device was not found. Refresh and try again.",
@@ -84,15 +88,17 @@ TEXT = {
         "manual_title": "Genshin MIDI Bridge User Guide",
         "velocity_live": "Velocity",
         "midi_error": "Could not process the MIDI message: {error}",
+        "already_running": "Genshin MIDI Bridge is already running. Use the existing window instead of starting another bridge.",
     },
     "es": {
         "home": "Inicio", "instruments": "Instrumentos", "settings": "Ajustes", "about": "Manual",
-        "home_title": "Listo para tocar", "home_sub": "Elige un instrumento, conecta MIDI y empieza a tocar.",
+        "home_title": "Listo para tocar", "home_sub": "¿Se te enredan los dedos al tocar con el teclado del PC? Conecta un teclado MIDI y pulsa Iniciar mapeo. El manual está abajo a la izquierda. Bilibili: 匿叶龙吃炸弹",
         "refresh": "Actualizar", "connect": "Conectar", "disconnect": "Desconectar", "start": "Iniciar mapeo", "stop": "Detener mapeo",
         "not_connected": "Sin conexión", "connected": "Dispositivo conectado", "mapping": "Mapeo activo", "waiting": "Esperando entrada MIDI",
         "instrument_title": "Instrumento y teclas", "instrument_sub": "Elige un modo. Pulsa una tecla del piano para cambiar su asignación.",
         "instrument_info": "Información", "map_to": "Asignar a", "disabled": "Desactivada", "reset": "Restaurar valores del modo",
-        "settings_sub": "Preferencias de interpretación y entrada.", "language": "Idioma de la interfaz", "pitch": "Tono",
+        "settings_sub": "Preferencias de interpretación y entrada.", "language": "Idioma de la interfaz", "theme": "Apariencia", "pitch": "Tono",
+        "theme_abyss": "El Abismo", "theme_springs": "Pueblo de los Manantiales", "theme_vanarana": "Vanarana",
         "octave": "Cambio de octava", "transpose": "Transposición en semitonos", "behavior": "Comportamiento de entrada", "velocity": "Umbral de velocidad",
         "sustain": "Usar pedal de sustain (CC64)", "black_keys": "Asignar las teclas negras a teclas blancas adyacentes", "black_direction": "Dirección de las teclas negras", "black_left": "Tecla blanca izquierda", "black_right": "Tecla blanca derecha", "fold": "Plegar octavas exteriores al rango más cercano",
         "no_device": "No se encontró ningún dispositivo MIDI", "choose_device": "Conecta un dispositivo MIDI y actualiza la lista.", "device_missing": "No se encontró el dispositivo MIDI seleccionado. Actualiza la lista e inténtalo de nuevo.",
@@ -102,15 +108,17 @@ TEXT = {
         "manual_title": "Manual de Genshin MIDI Bridge",
         "velocity_live": "Velocidad",
         "midi_error": "No se pudo procesar el mensaje MIDI: {error}",
+        "already_running": "Genshin MIDI Bridge ya está en ejecución. Usa la ventana existente en lugar de iniciar otro puente.",
     },
     "ja": {
         "home": "ホーム", "instruments": "楽器", "settings": "設定", "about": "使い方",
-        "home_title": "演奏の準備", "home_sub": "楽器を選択し、MIDIを接続して演奏を始めます。",
+        "home_title": "演奏の準備", "home_sub": "パソコンのキーボードでは指が絡まりそう？MIDIキーボードを接続して「マッピング開始」を押すだけです。使い方は左下にあります。Bilibili: 匿叶龙吃炸弹",
         "refresh": "更新", "connect": "接続", "disconnect": "切断", "start": "マッピング開始", "stop": "マッピング停止",
         "not_connected": "未接続", "connected": "デバイス接続済み", "mapping": "マッピング中", "waiting": "MIDI入力を待っています",
         "instrument_title": "楽器とキー", "instrument_sub": "モードを選択し、ピアノのキーをクリックして割り当てを変更できます。",
         "instrument_info": "楽器の説明", "map_to": "割り当て", "disabled": "オフ", "reset": "このモードを初期設定に戻す",
-        "settings_sub": "演奏と入力の設定。", "language": "表示言語", "pitch": "ピッチ",
+        "settings_sub": "演奏と入力の設定。", "language": "表示言語", "theme": "外観", "pitch": "ピッチ",
+        "theme_abyss": "深境螺旋", "theme_springs": "流泉の衆", "theme_vanarana": "ヴァナラーナ",
         "octave": "オクターブシフト", "transpose": "半音移調", "behavior": "入力動作", "velocity": "ベロシティしきい値",
         "sustain": "サステインペダルを使用（CC64）", "black_keys": "黒鍵を隣の白鍵に割り当てる", "black_direction": "黒鍵の割り当て方向", "black_left": "左側の白鍵", "black_right": "右側の白鍵", "fold": "範囲外のオクターブを最も近い演奏範囲に折りたたむ",
         "no_device": "MIDIデバイスが見つかりません", "choose_device": "MIDIデバイスを接続してから一覧を更新してください。", "device_missing": "選択したMIDIデバイスが見つかりません。一覧を更新してもう一度お試しください。",
@@ -120,6 +128,7 @@ TEXT = {
         "manual_title": "Genshin MIDI Bridge 使用ガイド",
         "velocity_live": "ベロシティ",
         "midi_error": "MIDIメッセージを処理できませんでした：{error}",
+        "already_running": "Genshin MIDI Bridge はすでに実行中です。別のブリッジを起動せず、既存のウィンドウを使用してください。",
     },
 }
 
@@ -130,11 +139,11 @@ MANUAL_HTML = {
         <li>在主页选择 MIDI 设备和游戏中的乐器。</li><li>点击“连接”，再点击“开始映射”。</li>
         <li>切回游戏并打开对应乐器，即可直接演奏。</li></ol>
         <h2>连接设备</h2>
-        <p><b>USB MIDI：</b>用 USB 线连接电子琴和电脑，等待 Windows 完成识别，然后点击“刷新”。</p>
+        <p><b>USB MIDI：</b>用 USB 线连接电子琴和电脑，等待 Windows 完成识别，然后点击“刷新”。（不知道怎么连接？可以查看设备说明书、厂商官网，或者问问万能的 AI 大人。）</p>
         <p><b>蓝牙 MIDI：</b>先在 Windows 蓝牙设置中配对。如果设备没有出现在列表里，请安装厂商驱动，或使用能把 BLE MIDI 暴露为 Windows MIDI 端口的桥接软件。</p>
         <p><b>注意：</b>普通蓝牙打字键盘不是 MIDI 设备，不能作为钢琴输入。设备必须能发送 MIDI Note On/Off 消息。</p>
         <h2>管理员权限</h2>
-        <p>游戏通常以管理员权限运行。Windows 不允许普通权限程序向高权限游戏发送按键，因此本软件默认请求管理员权限。出现 UAC 窗口时请选择“是”。</p>
+        <p>游戏通常以管理员权限运行。Windows 不允许普通权限程序向高权限游戏发送按键，因此本软件默认请求管理员权限。出现 UAC 窗口时请选择“是”。实在不行就右键程序，选择“以管理员身份运行”。</p>
         <h2>乐器与键位</h2>
         <p>在“乐器”页切换预设。点击大钢琴上的任意白键或黑键，可以手动修改它发送的键盘按键。黑键映射方向、外侧八度折叠、移调和力度门槛位于“设置”。</p>
         <h2>延音踏板</h2>
@@ -142,39 +151,47 @@ MANUAL_HTML = {
         <h2>无法使用时</h2>
         <ul><li>设备不在列表：重新插线或配对，然后点击“刷新”。</li><li>软件有输入但游戏无反应：确认允许了管理员权限，并确认游戏内已经打开乐器。</li>
         <li>快捷键无效：Ctrl + Alt + F8 可能被其他软件占用，仍可使用主页按钮。</li><li>切换设备或乐器后异常：停止映射，重新连接后再开始。</li></ul>
+        <p><b>还有问题？</b>去 B 站搜索匿叶龙吃炸弹。</p>
+        <p>流泉不息，哗啦逐浪，玛门永存 。</p>
     """,
     "en": """
         <h2>Quick start</h2><ol><li>Connect a MIDI keyboard.</li><li>Launch Genshin MIDI Bridge and approve the administrator prompt.</li>
         <li>Choose the MIDI device and the matching in-game instrument.</li><li>Select Connect, then Start mapping.</li><li>Return to the game, open that instrument, and play.</li></ol>
-        <h2>Connecting a device</h2><p><b>USB MIDI:</b> Connect the keyboard by USB, wait for Windows to detect it, then select Refresh.</p>
+        <h2>Connecting a device</h2><p><b>USB MIDI:</b> Connect the keyboard by USB, wait for Windows to detect it, then select Refresh. (Not sure how? Check the device manual, the manufacturer's website, or ask the all-knowing AI.)</p>
         <p><b>Bluetooth MIDI:</b> Pair it in Windows first. If it does not appear, install the manufacturer's driver or a BLE-MIDI bridge that exposes a Windows MIDI port.</p>
         <p><b>Note:</b> A regular Bluetooth typing keyboard is not a MIDI device. The device must send MIDI Note On/Off messages.</p>
-        <h2>Administrator access</h2><p>The game commonly runs as administrator. Windows blocks a normal app from sending input to an elevated game, so Genshin MIDI Bridge requests administrator access by default. Select Yes in the UAC prompt.</p>
+        <h2>Administrator access</h2><p>The game commonly runs as administrator. Windows blocks a normal app from sending input to an elevated game, so Genshin MIDI Bridge requests administrator access by default. Select Yes in the UAC prompt. If that still does not work, right-click the app and choose Run as administrator.</p>
         <h2>Instruments and mappings</h2><p>Choose a preset on the Instruments page. Click any white or black piano key to customize its output. Black-key direction, octave folding, transpose, and velocity threshold are in Settings.</p>
         <h2>Sustain pedal</h2><p>CC64 pedals are supported. Repeating the same note while the pedal is held retriggers it; releasing the pedal releases all sustained notes.</p>
         <h2>Troubleshooting</h2><ul><li>Device missing: reconnect or pair it, then select Refresh.</li><li>MIDI is detected but the game is silent: approve administrator access and open the instrument in game.</li><li>Hotkey unavailable: another app may use Ctrl + Alt + F8; use the Home button instead.</li><li>After switching devices or presets: stop mapping, reconnect, and start again.</li></ul>
+        <p><b>Still need help?</b> Search for 匿叶龙吃炸弹 on Bilibili.</p>
+        <p>Mualani ♥♥</p>
     """,
     "es": """
         <h2>Inicio rápido</h2><ol><li>Conecta un teclado MIDI.</li><li>Abre Genshin MIDI Bridge y acepta el permiso de administrador.</li>
         <li>Elige el dispositivo MIDI y el instrumento del juego.</li><li>Pulsa Conectar y después Iniciar mapeo.</li><li>Vuelve al juego, abre el instrumento y toca.</li></ol>
-        <h2>Conectar un dispositivo</h2><p><b>MIDI por USB:</b> Conecta el teclado, espera a que Windows lo detecte y pulsa Actualizar.</p>
+        <h2>Conectar un dispositivo</h2><p><b>MIDI por USB:</b> Conecta el teclado, espera a que Windows lo detecte y pulsa Actualizar. (¿No sabes cómo? Consulta el manual, la web del fabricante o pregúntale a la todopoderosa IA.)</p>
         <p><b>MIDI por Bluetooth:</b> Emparéjalo primero en Windows. Si no aparece, instala el controlador del fabricante o un puente BLE-MIDI que cree un puerto MIDI de Windows.</p>
         <p><b>Nota:</b> Un teclado Bluetooth normal para escribir no es un dispositivo MIDI. Debe enviar mensajes MIDI Note On/Off.</p>
-        <h2>Permisos de administrador</h2><p>El juego suele ejecutarse como administrador. Windows impide que una aplicación normal envíe teclas a un juego elevado, por lo que Genshin MIDI Bridge solicita este permiso de forma predeterminada.</p>
+        <h2>Permisos de administrador</h2><p>El juego suele ejecutarse como administrador. Windows impide que una aplicación normal envíe teclas a un juego elevado, por lo que Genshin MIDI Bridge solicita este permiso de forma predeterminada. Si aun así no funciona, haz clic derecho en la aplicación y elige Ejecutar como administrador.</p>
         <h2>Instrumentos y asignaciones</h2><p>Elige un modo en Instrumentos. Pulsa cualquier tecla blanca o negra del piano para cambiar su asignación. La dirección de teclas negras, el plegado de octavas, la transposición y la velocidad están en Ajustes.</p>
         <h2>Pedal de sustain</h2><p>Se admiten pedales CC64. Una nota repetida mientras se mantiene el pedal vuelve a activarse; al soltarlo se liberan todas las notas sostenidas.</p>
         <h2>Solución de problemas</h2><ul><li>El dispositivo no aparece: vuelve a conectarlo o emparejarlo y pulsa Actualizar.</li><li>Se detecta MIDI pero el juego no responde: acepta el permiso de administrador y abre el instrumento dentro del juego.</li><li>El atajo no funciona: otra aplicación puede estar usando Ctrl + Alt + F8.</li></ul>
+        <p><b>¿Necesitas más ayuda?</b> Busca a 匿叶龙吃炸弹 en Bilibili.</p>
+        <p>Mualani ♥♥</p>
     """,
     "ja": """
         <h2>クイックスタート</h2><ol><li>MIDIキーボードを接続します。</li><li>Genshin MIDI Bridgeを起動し、管理者権限を許可します。</li>
         <li>MIDIデバイスとゲーム内の楽器を選択します。</li><li>「接続」、「マッピング開始」の順に押します。</li><li>ゲームに戻り、対応する楽器を開いて演奏します。</li></ol>
-        <h2>デバイスの接続</h2><p><b>USB MIDI：</b>USBで接続し、Windowsの認識を待ってから「更新」を押します。</p>
+        <h2>デバイスの接続</h2><p><b>USB MIDI：</b>USBで接続し、Windowsの認識を待ってから「更新」を押します。（接続方法が分からない場合は、機器の説明書やメーカー公式サイトを確認するか、万能なAI先生に聞いてみましょう。）</p>
         <p><b>Bluetooth MIDI：</b>Windowsで先にペアリングします。表示されない場合はメーカーのドライバー、またはBLE MIDIをWindows MIDIポートとして公開するブリッジソフトを使用してください。</p>
         <p><b>注意：</b>文字入力用の一般的なBluetoothキーボードはMIDI機器ではありません。MIDI Note On/Offを送信できる機器が必要です。</p>
-        <h2>管理者権限</h2><p>ゲームが管理者権限で動作している場合、通常権限のアプリからキー入力を送信できません。そのためGenshin MIDI Bridgeは既定で管理者権限を要求します。UACでは「はい」を選択してください。</p>
+        <h2>管理者権限</h2><p>ゲームが管理者権限で動作している場合、通常権限のアプリからキー入力を送信できません。そのためGenshin MIDI Bridgeは既定で管理者権限を要求します。UACでは「はい」を選択してください。それでも動作しない場合は、アプリを右クリックして「管理者として実行」を選んでください。</p>
         <h2>楽器とキー割り当て</h2><p>「楽器」ページでプリセットを選びます。ピアノの白鍵・黒鍵をクリックすると割り当てを変更できます。黒鍵方向、オクターブ折りたたみ、移調、ベロシティは「設定」にあります。</p>
         <h2>サステインペダル</h2><p>CC64に対応しています。ペダル中に同じ音を弾き直しても毎回再発音し、ペダルを離すと保持中の音を解放します。</p>
         <h2>トラブルシューティング</h2><ul><li>機器がない：再接続または再ペアリング後に「更新」。</li><li>入力は見えるがゲームが反応しない：管理者権限とゲーム内で楽器を開いていることを確認。</li><li>ショートカットが使えない：Ctrl + Alt + F8を別アプリが使用している可能性があります。</li></ul>
+        <p><b>解決しない場合：</b>Bilibiliで匿叶龙吃炸弹を検索してください。</p>
+        <p>Mualani ♥♥</p>
     """,
 }
 GAME_KEY_LABELS = {
@@ -220,28 +237,28 @@ def build_profiles() -> dict[str, InstrumentProfile]:
         72: "q", 73: "w", 75: "e", 77: "r", 79: "t", 80: "y", 82: "u",
     }
     profiles = [
-        InstrumentProfile("windsong", "风物之诗琴", "三排旋律", "三组八度 · 七声音阶",
-                          "经典三排二十一键布局。低、中、高音区分别对应 Z–M、A–J、Q–U。", standard),
-        InstrumentProfile("euphonium", "余音", "和弦与旋律", "七个和弦 · 两组旋律",
-                          "和弦放在旋律区下方一个物理八度：C2–B2 触发 Q–U；C3–B3 与 C4–B4 演奏两组旋律。",
+        InstrumentProfile("windsong", "风物之诗琴", "蒙德乐器", "3 个八度 · C 大调自然音阶",
+                          "来自蒙德的轻盈诗琴，声音清亮，很适合弹奏旋律。", standard),
+        InstrumentProfile("euphonium", "余音", "丝柯克的吉他", "2 个旋律八度 · 7 个和弦",
+                          "丝柯克仿照故乡乐器亲手制作的吉他，古老的旋律像在诉说一段无人记得的往事。",
                           chord, 24, 83),
-        InstrumentProfile("nightwind", "晚风圆号", "两排旋律", "两组八度 · 延音音色",
-                          "两排十四键布局。C3–B3 对应 A–J，C4–B4 对应 Q–U。", two_rows, 36, 95),
-        InstrumentProfile("yukele", "悠可琴", "和弦与旋律", "和弦低置 · 特殊键位",
-                          "和弦位于 C2–B2；两组旋律分别使用 Q–U 与 I、O、P、[、]、\\、Num 7。",
+        InstrumentProfile("nightwind", "晚风圆号", "枫丹乐器", "2 个八度 · C 大调自然音阶",
+                          "来自枫丹的圆号，音色温暖柔和，像傍晚吹过树梢的风。", two_rows, 36, 95),
+        InstrumentProfile("yukele", "悠可琴", "纳塔乐器", "2 个旋律八度 · 7 个和弦",
+                          "来自纳塔的小型四弦琴，声音明亮活泼，也可以为旋律配上和弦。",
                           yukele, 24, 83),
-        InstrumentProfile("leaping", "跃律琴", "三排旋律", "三组八度 · 七声音阶",
-                          "三排二十一键布局，使用标准三音区映射。", standard),
-        InstrumentProfile("harmonic", "谐律键琴", "三排旋律", "三组八度 · 七声音阶",
-                          "三排二十一键布局，使用标准三音区映射。", standard),
-        InstrumentProfile("vintage", "老旧的诗琴", "变化音阶", "黑键直连 · 缺失音关闭",
-                          "变化音直接使用钢琴黑键。游戏里不存在的音不会回退到白键，而是保持关闭。", old_lyre),
-        InstrumentProfile("string_drum", "绮筵之鼓", "打击乐", "四个鼓点",
-                          "四个鼓点分布到 C、D、A、B，分别触发 A、S、K、L。",
-                          {48: "a", 50: "s", 57: "k", 59: "l"}, 48, 71),
-        InstrumentProfile("juju_drum", "聚聚鼓", "打击乐", "两组四个鼓点",
-                          "低组使用 A、S、K、L，高组使用 Q、W、I、O。",
-                          {48: "a", 50: "s", 57: "k", 59: "l", 60: "q", 62: "w", 69: "i", 71: "o"},
+        InstrumentProfile("leaping", "跃律琴", "纳塔乐器", "3 个八度 · C 大调自然音阶",
+                          "一架带着纳塔节奏感的弧形钢琴，音色明快，很适合热闹的曲子。", standard),
+        InstrumentProfile("harmonic", "谐律键琴", "古老键琴", "3 个八度 · C 大调自然音阶",
+                          "一架精致华丽的键琴，清澈的琴声仿佛邀请每位听众加入合奏。", standard),
+        InstrumentProfile("vintage", "老旧的诗琴", "兰那罗的诗琴", "3 个八度 · 兰那罗的特殊变音音阶",
+                          "旅行者在《森林书》的旅途中使用过的诗琴，兰那罗的曲调会借它唤醒梦境与森林的记忆。", old_lyre),
+        InstrumentProfile("string_drum", "绮筵之鼓", "庆典乐器", "4 种鼓点 · 无固定音阶",
+                          "一面小巧的庆典鼓，用四种鼓点敲出简单有力的节奏。",
+                          {48: "a", 50: "s", 52: "k", 53: "l"}, 48, 71),
+        InstrumentProfile("juju_drum", "聚聚鼓", "纳塔乐器", "2 组鼓点 · 共 8 个按键",
+                          "来自纳塔的双组手鼓，适合演奏更丰富、更热闹的节奏。",
+                          {48: "a", 50: "s", 52: "k", 53: "l", 60: "q", 62: "w", 64: "i", 65: "o"},
                           48, 83),
     ]
     return {profile.id: profile for profile in profiles}
@@ -251,37 +268,37 @@ PROFILES = build_profiles()
 
 PROFILE_TEXT = {
     "en": {
-        "windsong": ("Windsong Lyre", "Three-row melody", "Three octaves · diatonic", "Classic 21-key layout: low, middle, and high ranges use Z–M, A–J, and Q–U."),
-        "euphonium": ('"Lingering Euphonia"', "Chords & melody", "Seven chords · two melody rows", "Chords sit one physical octave below the melody: C2–B2 triggers Q–U; C3–B3 and C4–B4 play the two melody rows."),
-        "nightwind": ("Nightwind Horn", "Two-row melody", "Two octaves · sustained tone", "Fourteen-key layout: C3–B3 maps to A–J and C4–B4 maps to Q–U."),
-        "yukele": ("Ukulele", "Chords & melody", "Low chords · extended keys", "Chords use C2–B2. Melody rows use Q–U and I, O, P, [, ], \\, Num 7."),
-        "leaping": ("Leaping Spirit Piano", "Three-row melody", "Three octaves · diatonic", "Standard three-range, 21-key mapping."),
-        "harmonic": ("Harmonic Keys", "Three-row melody", "Three octaves · diatonic", "Standard three-range, 21-key mapping."),
-        "vintage": ("Vintage Lyre", "Chromatic scale", "Direct accidentals · missing notes off", "Accidentals map directly to black keys. Notes absent from the game remain disabled."),
-        "string_drum": ("Festive Drum", "Percussion", "Four drum hits", "Four hits on C, D, A, and B trigger A, S, K, and L."),
-        "juju_drum": ("Djem Djem Drum", "Percussion", "Two groups of four hits", "The low group uses A, S, K, L; the high group uses Q, W, I, O."),
+        "windsong": ("Windsong Lyre", "Mondstadt instrument", "3 octaves · C major natural notes", "A light, clear-toned lyre from Mondstadt, made for carrying a melody on the wind."),
+        "euphonium": ('"Lingering Euphonia"', "Skirk's guitar", "2 melody octaves · 7 chords", "A guitar Skirk fashioned after an instrument from her homeland; its ancient melody whispers of a forgotten past."),
+        "nightwind": ("Nightwind Horn", "Fontaine instrument", "2 octaves · C major natural notes", "A Fontainian horn with a warm, gentle voice, like an evening breeze moving through the trees."),
+        "yukele": ("Ukulele", "Natlan instrument", "2 melody octaves · 7 chords", "A small four-stringed instrument from Natlan, bright and lively enough for both melody and accompaniment."),
+        "leaping": ("Leaping Spirit Piano", "Natlan instrument", "3 octaves · C major natural notes", "A curved piano with Natlan's pulse in its keys, perfect for bright and energetic tunes."),
+        "harmonic": ("Harmonic Keys", "Ancient keyboard", "3 octaves · C major natural notes", "An exquisite keyboard whose crystalline voice seems to invite everyone into the ensemble."),
+        "vintage": ("Vintage Lyre", "The Aranara's lyre", "3 octaves · special Aranara accidentals", "The lyre carried through the Aranyaka journey, where Aranara melodies awaken dreams and memories of the forest."),
+        "string_drum": ("Festive Drum", "Festival instrument", "4 drum sounds · no fixed scale", "A small festival drum whose four bold voices are made for simple, spirited rhythms."),
+        "juju_drum": ("Djem Djem Drum", "Natlan instrument", "2 drum groups · 8 controls", "A two-part hand drum from Natlan, ready for richer rhythms and a livelier celebration."),
     },
     "es": {
-        "windsong": ("Lira de la brisa", "Melodía de tres filas", "Tres octavas · escala diatónica", "Distribución clásica de 21 teclas: Z–M, A–J y Q–U para los registros grave, medio y agudo."),
-        "euphonium": ("Eufonía persistente", "Acordes y melodía", "Siete acordes · dos filas melódicas", "Los acordes están una octava física bajo la melodía: C2–B2 activa Q–U; C3–B3 y C4–B4 tocan las melodías."),
-        "nightwind": ("Trompa cefironocturna", "Melodía de dos filas", "Dos octavas · sonido sostenido", "Distribución de catorce teclas: C3–B3 usa A–J y C4–B4 usa Q–U."),
-        "yukele": ("Ukelele", "Acordes y melodía", "Acordes graves · teclas especiales", "Los acordes usan C2–B2. Las melodías usan Q–U e I, O, P, [, ], \\, Num 7."),
-        "leaping": ("Piano animaespíritu", "Melodía de tres filas", "Tres octavas · escala diatónica", "Asignación estándar de 21 teclas en tres registros."),
-        "harmonic": ("Teclado armónico", "Melodía de tres filas", "Tres octavas · escala diatónica", "Asignación estándar de 21 teclas en tres registros."),
-        "vintage": ("Lira antigua", "Escala cromática", "Alteraciones directas · notas ausentes desactivadas", "Las alteraciones se asignan a teclas negras. Las notas que no existen en el juego quedan desactivadas."),
-        "string_drum": ("Tambor del festín", "Percusión", "Cuatro golpes", "Cuatro golpes en C, D, A y B activan A, S, K y L."),
-        "juju_drum": ("Tambor Yemyem", "Percusión", "Dos grupos de cuatro golpes", "El grupo grave usa A, S, K, L; el agudo usa Q, W, I, O."),
+        "windsong": ("Lira de la brisa", "Instrumento de Mondstadt", "3 octavas · notas naturales de do mayor", "Una lira ligera y cristalina de Mondstadt, perfecta para dejar que la melodía viaje con el viento."),
+        "euphonium": ("Eufonía persistente", "La guitarra de Skirk", "2 octavas melódicas · 7 acordes", "Una guitarra creada por Skirk a imagen de un instrumento de su tierra; su melodía antigua susurra un pasado olvidado."),
+        "nightwind": ("Trompa cefironocturna", "Instrumento de Fontaine", "2 octavas · notas naturales de do mayor", "Una trompa de Fontaine de voz cálida y suave, como la brisa nocturna entre los árboles."),
+        "yukele": ("Ukelele", "Instrumento de Natlan", "2 octavas melódicas · 7 acordes", "Un pequeño instrumento de cuatro cuerdas de Natlan, alegre y luminoso para melodías y acompañamientos."),
+        "leaping": ("Piano animaespíritu", "Instrumento de Natlan", "3 octavas · notas naturales de do mayor", "Un piano curvo con el pulso de Natlan en sus teclas, ideal para canciones vivas y enérgicas."),
+        "harmonic": ("Teclado armónico", "Teclado antiguo", "3 octavas · notas naturales de do mayor", "Un teclado exquisito cuya voz cristalina parece invitar a todos a unirse al conjunto."),
+        "vintage": ("Lira antigua", "La lira de los aranara", "3 octavas · alteraciones especiales aranara", "La lira del viaje de los Araniaka, cuyas canciones aranara despiertan los sueños y la memoria del bosque."),
+        "string_drum": ("Tambor del festín", "Instrumento festivo", "4 sonidos · sin escala fija", "Un pequeño tambor de fiesta con cuatro voces firmes para crear ritmos sencillos y animados."),
+        "juju_drum": ("Tambor Yemyem", "Instrumento de Natlan", "2 grupos · 8 controles", "Un tambor de mano doble de Natlan, hecho para ritmos más ricos y celebraciones más vivas."),
     },
     "ja": {
-        "windsong": ("風吹きのライアー", "3段メロディ", "3オクターブ · 7音音階", "21キーの標準配置。低・中・高音域はZ–M、A–J、Q–Uに対応します。"),
-        "euphonium": ("「余韻」", "コードとメロディ", "7コード · 2段メロディ", "コードはメロディより1オクターブ下に配置。C2–B2でQ–U、C3–B3とC4–B4で2段のメロディを演奏します。"),
-        "nightwind": ("ナイトウィンド・ホルン", "2段メロディ", "2オクターブ · 持続音", "14キー配置。C3–B3はA–J、C4–B4はQ–Uに対応します。"),
-        "yukele": ("ウクレレ", "コードとメロディ", "低音コード · 特殊キー", "コードはC2–B2。メロディはQ–UとI、O、P、[、]、\\、Num 7を使用します。"),
-        "leaping": ("ホッピングピアノ", "3段メロディ", "3オクターブ · 7音音階", "3音域、21キーの標準マッピングです。"),
-        "harmonic": ("諧律のチェンバロ", "3段メロディ", "3オクターブ · 7音音階", "3音域、21キーの標準マッピングです。"),
-        "vintage": ("古びたライアー", "変化音階", "黒鍵を直接使用 · 存在しない音はオフ", "変化音を黒鍵へ直接割り当てます。ゲームに存在しない音は無効のままです。"),
-        "string_drum": ("綺宴の鼓", "打楽器", "4つの打音", "C、D、A、Bの4音でA、S、K、Lを入力します。"),
-        "juju_drum": ("ジャンベ", "打楽器", "4音×2グループ", "低音グループはA、S、K、L、高音グループはQ、W、I、Oを使用します。"),
+        "windsong": ("風吹きのライアー", "モンドの楽器", "3オクターブ · ハ長調の自然音", "モンド生まれの軽やかなライアー。澄んだ音色が旋律を風に乗せます。"),
+        "euphonium": ("「余韻」", "スカークのギター", "旋律2オクターブ · 7コード", "スカークが故郷の楽器をもとに作ったギター。その古い旋律は、忘れられた過去を囁くようです。"),
+        "nightwind": ("ナイトウィンド・ホルン", "フォンテーヌの楽器", "2オクターブ · ハ長調の自然音", "夕暮れの風のように、温かく穏やかな音を奏でるフォンテーヌのホルンです。"),
+        "yukele": ("ウクレレ", "ナタの楽器", "旋律2オクターブ · 7コード", "明るく軽やかな音を持つナタの小さな四弦楽器。旋律にも伴奏にもよく似合います。"),
+        "leaping": ("ホッピングピアノ", "ナタの楽器", "3オクターブ · ハ長調の自然音", "ナタの鼓動を鍵盤に宿した曲線形のピアノ。弾むような曲にぴったりです。"),
+        "harmonic": ("諧律のチェンバロ", "古代の鍵盤楽器", "3オクターブ · ハ長調の自然音", "透き通る音色が、誰もを壮大な合奏へ誘うかのような優美な鍵盤楽器です。"),
+        "vintage": ("古びたライアー", "アランナラのライアー", "3オクターブ · アランナラの特殊な変化音", "森林書の旅で使われたライアー。アランナラの曲が夢と森の記憶を呼び覚まします。"),
+        "string_drum": ("綺宴の鼓", "祭りの楽器", "4つの打音 · 固定音階なし", "4つの力強い音で、素朴で賑やかなリズムを刻む小さな祭りの太鼓です。"),
+        "juju_drum": ("ジャンベ", "ナタの楽器", "2グループ · 8キー", "より豊かなリズムと賑やかな宴を楽しめる、ナタの二組のハンドドラムです。"),
     },
 }
 
@@ -290,6 +307,7 @@ PROFILE_TEXT = {
 class Config:
     language: str = "zh"
     language_selected: bool = False
+    theme: str = "abyss"
     midi_port: str = ""
     profile_id: str = "windsong"
     octave_shift: int = 0
@@ -311,6 +329,10 @@ class Config:
                 config.profile_id = "windsong"
             if config.language not in LANGUAGES:
                 config.language = "zh"
+            if config.theme == "fontaine":
+                config.theme = "springs"
+            if config.theme not in THEMES:
+                config.theme = "abyss"
             if config.black_key_direction not in {"left", "right"}:
                 config.black_key_direction = "left"
             if not isinstance(config.profile_overrides, dict):
@@ -722,9 +744,17 @@ def page_header(title: str, subtitle: str) -> tuple[QWidget, QVBoxLayout]:
     heading.setObjectName("pageTitle")
     detail = QLabel(subtitle)
     detail.setObjectName("muted")
+    detail.setWordWrap(True)
     layout.addWidget(heading)
     layout.addWidget(detail)
     return page, layout
+
+
+class ClickOnlyComboBox(QComboBox):
+    """A combo box that cannot be changed accidentally with the mouse wheel."""
+
+    def wheelEvent(self, event) -> None:
+        event.ignore()
 
 
 class LanguageDialog(QDialog):
@@ -962,7 +992,7 @@ class MainWindow(QMainWindow):
         content, layout = page_header("设置", "演奏参数与输入行为。")
         self.settings_heading, self.settings_subtitle = content.findChildren(QLabel)[:2]
         content.setObjectName("settingsContent")
-        content.setMinimumHeight(760)
+        content.setMinimumHeight(900)
         pitch, pitch_layout = card()
         self.pitch_title = QLabel("音高")
         self.pitch_title.setObjectName("sectionTitle")
@@ -985,13 +1015,24 @@ class MainWindow(QMainWindow):
         self.language_title = QLabel("界面语言")
         self.language_title.setObjectName("sectionTitle")
         language_layout.addWidget(self.language_title)
-        self.language_combo = QComboBox()
+        self.language_combo = ClickOnlyComboBox()
         for code, label in LANGUAGES.items():
             self.language_combo.addItem(label, code)
         self.language_combo.setCurrentIndex(max(0, self.language_combo.findData(self.config.language)))
         self.language_combo.currentIndexChanged.connect(self.change_language)
         language_layout.addWidget(self.language_combo)
         layout.addWidget(language_card)
+        theme_card, theme_layout = card()
+        self.theme_title = QLabel("界面颜色")
+        self.theme_title.setObjectName("sectionTitle")
+        theme_layout.addWidget(self.theme_title)
+        self.theme_combo = ClickOnlyComboBox()
+        for theme in THEMES:
+            self.theme_combo.addItem("", theme)
+        self.theme_combo.setCurrentIndex(max(0, self.theme_combo.findData(self.config.theme)))
+        self.theme_combo.currentIndexChanged.connect(self.change_theme)
+        theme_layout.addWidget(self.theme_combo)
+        layout.addWidget(theme_card)
         behavior, behavior_layout = card()
         self.behavior_title = QLabel("输入行为")
         self.behavior_title.setObjectName("sectionTitle")
@@ -1058,6 +1099,14 @@ class MainWindow(QMainWindow):
         self._retranslate_ui()
         self._sync_profile_ui()
 
+    def change_theme(self, *_args) -> None:
+        theme = self.theme_combo.currentData()
+        if theme not in THEMES:
+            return
+        self.config.theme = theme
+        self.config.save()
+        self._apply_styles()
+
     def _retranslate_ui(self) -> None:
         nav = (("home", "●"), ("instruments", "♬"), ("settings", "⚙"))
         for button, (key, symbol) in zip(self.nav_buttons, nav, strict=True):
@@ -1065,6 +1114,8 @@ class MainWindow(QMainWindow):
         self.about_button.setText(f"?   {self._t('about')}")
         self.home_heading.setText(self._t("home_title"))
         self.home_subtitle.setText(self._t("home_sub"))
+        self.home_subtitle.setMinimumHeight(0)
+        self.home_subtitle.setMinimumHeight(self.home_subtitle.sizeHint().height())
         self.refresh_button.setText(self._t("refresh"))
         self.instrument_heading.setText(self._t("instrument_title"))
         self.instrument_subtitle.setText(self._t("instrument_sub"))
@@ -1075,6 +1126,9 @@ class MainWindow(QMainWindow):
         self.settings_heading.setText(self._t("settings"))
         self.settings_subtitle.setText(self._t("settings_sub"))
         self.language_title.setText(self._t("language"))
+        self.theme_title.setText(self._t("theme"))
+        for index, theme in enumerate(THEMES):
+            self.theme_combo.setItemText(index, self._t(f"theme_{theme}"))
         self.pitch_title.setText(self._t("pitch"))
         self.octave_label.setText(self._t("octave"))
         self.transpose_label.setText(self._t("transpose"))
@@ -1238,7 +1292,7 @@ class MainWindow(QMainWindow):
 
     def show_profile_info(self) -> None:
         profile = PROFILES[self.config.profile_id]
-        name, _category, _summary, description = self._profile_text(profile)
+        name, category, summary, description = self._profile_text(profile)
         dialog = QDialog(self)
         dialog.setWindowTitle(name)
         dialog.setModal(True)
@@ -1247,10 +1301,13 @@ class MainWindow(QMainWindow):
         layout.setContentsMargins(26, 24, 26, 24)
         title = QLabel(name)
         title.setObjectName("pageTitle")
+        facts = QLabel(f"{category}  ·  {summary}")
+        facts.setObjectName("sectionTitle")
         detail = QLabel(description)
         detail.setWordWrap(True)
         detail.setObjectName("muted")
         layout.addWidget(title)
+        layout.addWidget(facts)
         layout.addWidget(detail)
         close = QPushButton(self._t("got_it"))
         close.clicked.connect(dialog.accept)
@@ -1288,7 +1345,7 @@ class MainWindow(QMainWindow):
             event.accept()
 
     def _apply_styles(self) -> None:
-        self.setStyleSheet("""
+        stylesheet = """
             * { font-family: "Segoe UI Variable", "Microsoft YaHei UI"; font-size: 14px; color: #F1F3F7; }
             QMainWindow { background: transparent; }
             #windowShell { background: #111319; border: 1px solid #2A2E38; border-radius: 14px; }
@@ -1343,7 +1400,56 @@ class MainWindow(QMainWindow):
             QDialog, QMessageBox { background: #191C24; }
             QTextBrowser { background: #151820; border: 1px solid #292D38; border-radius: 10px;
                            padding: 14px; color: #DDE1EA; }
-        """)
+        """
+        palettes = {
+            "springs": {
+                "#F1F3F7": "#173F52", "#111319": "#DDF8F2", "#2A2E38": "#73CFD0",
+                "#151820": "#B9EEE8", "#DDE1EB": "#123F55", "#AEB4C2": "#47798A",
+                "#272B35": "#9DE1DD", "#242832": "#ADE8E3", "#6577FF": "#168FE1",
+                "#989FAD": "#4B7F8E", "#20242D": "#A4E4DF", "#E8EBF2": "#173F52",
+                "#292E3B": "#7ED8DB", "#FFFFFF": "#10394E", "#F7F8FA": "#10394E",
+                "#F4F5F8": "#164255", "#969DAB": "#50818E", "#191C24": "#F3FCFA",
+                "#292D38": "#72CFCE", "#B8C1FF": "#047EBB", "#252A3B": "#BEEFE5",
+                "#353C5A": "#6BC9CC", "#B8C7FF": "#087FBB", "#7485FF": "#29B5E9",
+                "#5668E8": "#0879C4", "#30343F": "#B9DDD7", "#737987": "#719198",
+                "#D7DAE2": "#234F5D", "#353A47": "#70C7C5", "#2D323E": "#8EDAD5",
+                "#232730": "#E6F7EA", "#353A46": "#75C9C6", "#586178": "#1BB1CB",
+                "#20242C": "#F7FFFD", "#4A5060": "#5EB8B8", "#3B404C": "#45AEB5",
+                "#DDE1EA": "#234F5D",
+            },
+            "vanarana": {
+                "#F1F3F7": "#EAF5F4", "#111319": "#091824", "#2A2E38": "#265568",
+                "#151820": "#0E2831", "#DDE1EB": "#E7F3F2", "#AEB4C2": "#9BBAB8",
+                "#272B35": "#173A48", "#242832": "#102E3A", "#6577FF": "#756DE4",
+                "#989FAD": "#8DADAB", "#20242D": "#153746", "#E8EBF2": "#EDF7F6",
+                "#292E3B": "#204A59", "#969DAB": "#8DADAB", "#191C24": "#112C3A",
+                "#292D38": "#285467", "#B8C1FF": "#62D2D7", "#252A3B": "#153A49",
+                "#353C5A": "#287286", "#B8C7FF": "#D7A0ED", "#7485FF": "#8B82EE",
+                "#5668E8": "#6259C7", "#30343F": "#1A3C48", "#737987": "#66888B",
+                "#D7DAE2": "#D9EAE7", "#353A47": "#315B69", "#2D323E": "#214554",
+                "#232730": "#102D3A", "#353A46": "#315B69", "#586178": "#4E8190",
+                "#20242C": "#0E2936", "#4A5060": "#477480", "#3B404C": "#396978",
+                "#DDE1EA": "#DCECE9",
+            },
+        }
+        for source, target in palettes.get(self.config.theme, {}).items():
+            stylesheet = stylesheet.replace(source, target)
+        if self.config.theme == "springs":
+            stylesheet += """
+                #brand, #primaryAction { background: #168FE1; color: white; }
+                #navButton:checked { background: #7DDBD8; color: #123F55; }
+                QComboBox:hover, QSpinBox:hover { border-color: #168FE1; }
+            """
+        elif self.config.theme == "vanarana":
+            stylesheet += """
+                #brand, #primaryAction {
+                    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                                                stop:0 #4FC4D2, stop:0.55 #706DE2, stop:1 #BF76D8);
+                    color: white;
+                }
+                #navButton:checked { background: #1F4C59; color: #F0F8F7; }
+            """
+        self.setStyleSheet(stylesheet)
 
 
 def ensure_administrator() -> bool:
@@ -1361,6 +1467,24 @@ def ensure_administrator() -> bool:
     return result > 32
 
 
+_SINGLE_INSTANCE_HANDLE = None
+
+
+def claim_single_instance() -> bool:
+    """Keep one bridge per Windows login session so MIDI is never mapped twice."""
+    global _SINGLE_INSTANCE_HANDLE
+    kernel32 = ctypes.windll.kernel32
+    kernel32.CreateMutexW.restype = wintypes.HANDLE
+    handle = kernel32.CreateMutexW(None, False, "Local\\GenshinMidiBridge.SingleInstance")
+    if not handle:
+        raise ctypes.WinError()
+    if kernel32.GetLastError() == 183:  # ERROR_ALREADY_EXISTS
+        kernel32.CloseHandle(handle)
+        return False
+    _SINGLE_INSTANCE_HANDLE = handle
+    return True
+
+
 def main() -> None:
     if sys.platform != "win32":
         raise SystemExit("This application requires Windows.")
@@ -1374,6 +1498,10 @@ def main() -> None:
     application.setFont(QFont("Segoe UI Variable", 10))
     try:
         config = Config.load()
+        if not claim_single_instance():
+            message = TEXT.get(config.language, TEXT["zh"])["already_running"]
+            QMessageBox.information(None, "Genshin MIDI Bridge", message)
+            raise SystemExit(0)
         if not config.language_selected:
             chooser = LanguageDialog(config.language)
             if chooser.exec() != QDialog.DialogCode.Accepted:

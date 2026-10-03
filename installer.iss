@@ -1,5 +1,5 @@
 #define MyAppName "Genshin MIDI Bridge"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.0.2"
 #define MyAppExeName "Genshin-MIDI-Bridge.exe"
 
 [Setup]
