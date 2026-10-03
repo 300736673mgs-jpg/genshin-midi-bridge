@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.py[cod]
+build/
+dist/
+*.spec
+AppData/
+settings-check.png
+.idea/
+.vscode/
+assets/
